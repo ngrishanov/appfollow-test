@@ -5,6 +5,18 @@ services:
     ports:
       - "8000:8000"
     depends_on:
-      - db
-  db:
+      - postgres
+    command: ["python3", "./run.py", "run-http-server"]
+  hn_parser:
+    build: .
+    depends_on:
+      - postgres
+    command: ["python3", "./run.py", "run-hn-parser"]
+  postgres:
     image: "postgres:12.1-alpine"
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_PASSWORD=appfollow-test
+      - POSTGRES_USER=appfollow-test
+      - POSTGRES_DB=appfollow-test

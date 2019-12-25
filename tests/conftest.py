@@ -1,5 +1,6 @@
 import asyncio
 import time
+import pathlib
 
 from psycopg2.extensions import ISOLATION_LEVEL_AUTOCOMMIT
 import psycopg2
@@ -64,7 +65,7 @@ def setup_db():
     conn.set_isolation_level(ISOLATION_LEVEL_AUTOCOMMIT)
     cursor = conn.cursor()
 
-    with open('../schema.sql') as f:
+    with open(pathlib.Path(__file__).parents[1] / 'schema.sql') as f:
         cursor.execute(f.read())
 
     cursor.close()

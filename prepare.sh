@@ -5,7 +5,7 @@ docker-compose up -d postgres
 
 export PGPASSWORD=appfollow-test
 
-until psql -h localhost -U appfollow-test -d appfollow-test -c "select 1" > /dev/null 2>&1; do
+until docker-compose exec -T postgres psql -U appfollow-test appfollow-test -c "select 1" > /dev/null 2>&1; do
   echo "Waiting for postgres server..."
   sleep 1
 done

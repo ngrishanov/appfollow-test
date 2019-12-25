@@ -1,20 +1,9 @@
 from unittest import mock
-import pathlib
 
 from pypika import PostgreSQLQuery as Query, Order
 
 from appfollow_test.storage.db import db, posts
-
-
-resources = pathlib.Path(__file__).parent / 'resources'
-
-
-def get_hn_page_mock(filename):
-    def func_mock():
-        with open(resources / filename) as f:
-            return f.read()
-
-    return func_mock
+from tests.utils import get_hn_page_mock
 
 
 async def test_parser():

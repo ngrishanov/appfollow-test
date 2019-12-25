@@ -45,11 +45,11 @@ def validate_args(schema):
                             'param': params['allowed_values'],
                         })
 
-                if errors:
-                    return response.json({
-                        'success': False,
-                        'errors': errors,
-                    })
+            if errors:
+                return response.json({
+                    'success': False,
+                    'errors': errors,
+                }, status=400)
 
             return await func(request, *args, **kwargs)
 

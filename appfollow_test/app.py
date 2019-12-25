@@ -49,7 +49,15 @@ async def get_posts(request):
     if order:
         q = q.orderby(order, order=Order[direction])
 
-    result = await db.fetch(q)
+    result = [
+        {
+            'id': post['id'],
+            'title': post['title'],
+            'url': post['url'],
+            'created': post['created'].isoformat(),
+        }
+        for post in await db.fetch(q)
+    ]
 
     return response.json({
         'success': True,
